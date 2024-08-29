@@ -10,7 +10,7 @@ export const createUser = async (user: CreateUserParams) => {
         const newUser = await account.create(
             ID.unique(),
             user.email,
-            '',
+            user.password,
             user.name
         )
         console.log({ newUser })
@@ -19,7 +19,7 @@ export const createUser = async (user: CreateUserParams) => {
     } catch (error) {
         console.log("Error...", error)
         if (error && error?.code === 409) {
-            const document = await users.list([
+            const document = await account.list([
                 Query.equal('email', [user.email])
             ])
             return document?.users[0]

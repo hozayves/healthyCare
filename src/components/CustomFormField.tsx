@@ -46,7 +46,6 @@ const RenderField = ({ field, props }: { field: any, props: CustomProps }) => {
                     </FormControl>
                 </div>
             )
-            break;
         case FormFieldType.PHONE_INPUT:
             return (
                 <FormControl>
@@ -59,6 +58,16 @@ const RenderField = ({ field, props }: { field: any, props: CustomProps }) => {
                         value={field.value as E164Number | undefined}
                         onChange={field.onChange}
                         className="input-phone"
+                    />
+                </FormControl>
+            )
+        case FormFieldType.PASSWORD:
+            return (
+                <FormControl>
+                    <Input
+                        placeholder={placeholder}
+                        {...field}
+                        className="shad-input border-0"
                     />
                 </FormControl>
             )

@@ -21,7 +21,8 @@ export enum FormFieldType {
     CHECKBOX = 'checkbox',
     DATE_PICKER = 'datePicker',
     SELECT = 'select',
-    SKELETON = 'skeleton'
+    SKELETON = 'skeleton',
+    PASSWORD = 'password'
 }
 
 const PatientForm = () => {
@@ -33,21 +34,21 @@ const PatientForm = () => {
         defaultValues: {
             name: "",
             email: "",
-            phone: ""
+            // phone: "",
+            password: ""
         },
     })
 
     // 2. Define a submit handler.
-    async function onSubmit({ name, email, phone }: z.infer<typeof UserFormValidation>) {
+    async function onSubmit({ name, email, password }: z.infer<typeof UserFormValidation>) {
         setIsLoading(true)
 
         try {
-            console.log("OnSubmit started")
-            const userData = { name, email, phone };
+            const userData = { name, email, password };
 
             const user = await createUser(userData)
 
-            if (user) router.push(`/patients/register`)
+            if (user) router.push(`/patients/${user.$id}/register`)
         } catch (error) {
             console.log(error)
         }
@@ -79,10 +80,10 @@ const PatientForm = () => {
                 />
                 <CustomFormField
                     control={form.control}
-                    fieldType={FormFieldType.PHONE_INPUT}
-                    name="phone"
-                    label="Phone Number"
-                    placeholder="(250) 783 234 532"
+                    fieldType={FormFieldType.PASSWORD}
+                    name="password"
+                    label="Password"
+                    placeholder="examples"
                 />
                 <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
             </form>
