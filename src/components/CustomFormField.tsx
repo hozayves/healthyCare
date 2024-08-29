@@ -1,4 +1,5 @@
-import React from 'react'
+import { E164Number } from 'libphonenumber-js/core'
+import React, { useState } from 'react'
 import { FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from './ui/form'
 import { Input } from './ui/input'
 import { Control } from 'react-hook-form'
@@ -50,13 +51,14 @@ const RenderField = ({ field, props }: { field: any, props: CustomProps }) => {
             return (
                 <FormControl>
                     <PhoneInput
-                        placeholder={placeholder}
-                        defaultCountry='RW'
+                        defaultCountry="RW"
+                        placeholder={props.placeholder}
                         international
                         withCountryCallingCode
-                        value={field.value}
+                        countryCallingCodeEditable={false}
+                        value={field.value as E164Number | undefined}
                         onChange={field.onChange}
-                        className='input-phone'
+                        className="input-phone"
                     />
                 </FormControl>
             )
@@ -76,7 +78,7 @@ function CustomFormField(props: CustomProps) {
                     {fieldType !== FormFieldType.CHECKBOX && label && (
                         <FormLabel>{label}</FormLabel>
                     )}
-                    <RenderField field={fieldType} props={props} />
+                    <RenderField field={field} props={props} />
                     <FormMessage className='shad-error' />
                 </FormItem>
             )}
