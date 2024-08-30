@@ -34,17 +34,17 @@ const PatientForm = () => {
         defaultValues: {
             name: "",
             email: "",
-            // phone: "",
-            password: ""
+            phone: "",
+            // password: ""
         },
     })
 
     // 2. Define a submit handler.
-    async function onSubmit({ name, email, password }: z.infer<typeof UserFormValidation>) {
+    async function onSubmit({ name, email, phone }: z.infer<typeof UserFormValidation>) {
         setIsLoading(true)
 
         try {
-            const userData = { name, email, password };
+            const userData = { name, email, phone };
 
             const user = await createUser(userData)
 
@@ -80,10 +80,10 @@ const PatientForm = () => {
                 />
                 <CustomFormField
                     control={form.control}
-                    fieldType={FormFieldType.PASSWORD}
-                    name="password"
-                    label="Password"
-                    placeholder="examples"
+                    fieldType={FormFieldType.PHONE_INPUT}
+                    name="phone"
+                    label="Phone number"
+                    placeholder="(250)782 178 563"
                 />
                 <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
             </form>
